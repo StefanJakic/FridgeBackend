@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.hylastix.fridge.service.ServiceMessages.*;
 
@@ -25,8 +26,8 @@ public class UserService {
             throw new RuntimeException(EMAIL_ALREADY_EXISTS);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setRole(DEFAULT_ROLE);
-        user.setRole("ADMIN");
+        user.setRole(DEFAULT_ROLE);
+        // user.setRole("ADMIN");
         userRepository.save(user);
     }
 
@@ -55,4 +56,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Set<User> getUsersNotInFridge(Long fridgeId) {
+        return userRepository.findUsersNotInFridge(fridgeId);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public boolean existsById(Long userId) {
+        return userRepository.existsById(userId);
+    }
 }

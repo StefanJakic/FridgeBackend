@@ -1,7 +1,7 @@
 package com.hylastix.fridge.config;
 
-import com.hylastix.fridge.exception.ForbiddenException;
 import com.hylastix.fridge.exception.NotFoundException;
+import com.hylastix.fridge.exception.ForbiddenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

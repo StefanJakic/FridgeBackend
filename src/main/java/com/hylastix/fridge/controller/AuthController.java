@@ -1,16 +1,13 @@
 package com.hylastix.fridge.controller;
 
-import com.hylastix.fridge.config.JwtService;
-import com.hylastix.fridge.dto.CreateUserRequest;
 import com.hylastix.fridge.entity.User;
 import com.hylastix.fridge.service.UserService;
+import com.hylastix.fridge.config.JwtService;
+import com.hylastix.fridge.dto.CreateUserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 

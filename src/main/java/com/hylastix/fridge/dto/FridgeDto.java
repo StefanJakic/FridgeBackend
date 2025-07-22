@@ -1,9 +1,9 @@
 package com.hylastix.fridge.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
 @Setter
@@ -16,6 +16,7 @@ public class FridgeDto {
     private double currentVolume;
     private double currentNumberOfItems;
 
+    // Custom getter for currentVolume (Lombok will NOT generate this one)
     public double getCurrentVolume() {
         return Math.round(currentVolume * 100.0) / 100.0;
     }
