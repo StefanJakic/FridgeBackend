@@ -26,7 +26,7 @@ services:
       - fridge-net
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.4.0
     container_name: fridge-kafka
     depends_on:
       - zookeeper
