@@ -52,4 +52,18 @@ public class Item {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", volume=" + volume +
+                ", storedAt=" + storedAt +
+                ", bestBefore=" + bestBefore +
+                ", fridge=" + fridge.getName()+
+                ", owner=" + owner +
+                 '}';
+    }
 }

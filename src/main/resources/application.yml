@@ -15,9 +15,13 @@ spring:
       hibernate:
         format_sql: true
 
+  kafka:
+    bootstrap-servers: localhost:9092
+
 server:
   port: 8080
 
 jwt:
   secret: mySuperSecureJwtSecretKeyThatIsAtLeast32BytesLong!!
   expirationMs: 2592000000 # 30 days (600h)
+

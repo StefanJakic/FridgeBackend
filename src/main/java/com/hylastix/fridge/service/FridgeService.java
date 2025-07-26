@@ -28,6 +28,7 @@ public class FridgeService {
     private final FridgeRepository fridgeRepository;
     private final UserRepository userRepository;
     private final FridgeItemRepository itemRepository;
+    private final KafkaProducerService kafkaProducerService;
 
 
     //@USER
@@ -56,7 +57,8 @@ public class FridgeService {
     }
 
 
-    //Important: Wrap this method with addItemByAdmin or addItemByUser
+    //Important(A): In this project every add should be done with this, since we want to centralize place for kafka sending
+    //Important(B): Wrap this method with addItemByAdmin or addItemByUser
     @Transactional
     private Item addItemCommon(Fridge fridge, Long ownerId, Item item) {
         User owner = userRepository.findById(ownerId)
@@ -76,7 +78,12 @@ public class FridgeService {
         addItemToFridgeBidirectional(item, fridge);
 
         // fridgeRepository.save(fridge); // REMOVE THIS
-        return itemRepository.save(item);
+        Item savedItem = itemRepository.save(item);
+        
+        // Send kafka message after successful save
+        kafkaProducerService.send("FridgeService: " + savedItem.getName());
+        
+        return savedItem;
     }
 
 
