@@ -41,7 +41,7 @@ public class FridgeController {
             FridgeDto dto = new FridgeDto(created.getId(), created.getName(), created.getCapacity(), created.getCurrentVolume(), created.getCurrentNumberOfItems());
             return ResponseEntity.ok(dto);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("message",e.getMessage()));
         }
     }
 
