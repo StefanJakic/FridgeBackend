@@ -15,6 +15,6 @@ import jakarta.validation.constraints.NotBlank;
 public class CreateFridgeRequest {
     @NotBlank(message = "Fridge name must not be blank")
     private String name;
-    @Min(value = 1, message = "Fridge capacity must be greater than zero")
+    @Min(value = 5, message = "Fridge capacity must be greater than 5")
     private double capacity;
 } 
