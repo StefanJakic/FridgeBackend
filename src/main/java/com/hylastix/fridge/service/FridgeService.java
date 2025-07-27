@@ -415,4 +415,35 @@ public class FridgeService {
         }
         item.setFridge(null);
     }
+
+    //@ADMIN - Check items expiring within 4 days and send email notifications
+    public void checkAndNotifyExpiringItems() {
+        LocalDate fourDaysFromNow = LocalDate.now().plusDays(4);
+        List<Item> expiringItems = itemRepository.findByBestBeforeBeforeAndBestBeforeAfter(
+                fourDaysFromNow, LocalDate.now().minusDays(1));
+
+        // Group items by user
+        Map<User, List<Item>> userItemsMap = expiringItems.stream()
+                .collect(Collectors.groupingBy(Item::getOwner));
+
+        // Send email notifications for each user
+        for (Map.Entry<User, List<Item>> entry : userItemsMap.entrySet()) {
+            User user = entry.getKey();
+            List<Item> items = entry.getValue();
+            
+            // Sort items by best before date
+            items.sort(Comparator.comparing(Item::getBestBefore));
+            
+            // Format message
+            StringBuilder message = new StringBuilder("Items expires soon:\n\n");
+            for (Item item : items) {
+                message.append(String.format("- %s (category: %s) - expire: %s\n",
+                    item.getName(), 
+                    item.getCategory() != null ? item.getCategory() : "N/A",
+                    item.getBestBefore()));
+            }
+
+            kafkaProducerService.sendEmailNotification(user.getEmail(), message.toString());
+        }
+    }
 }

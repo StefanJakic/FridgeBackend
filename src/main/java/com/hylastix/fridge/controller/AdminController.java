@@ -197,4 +197,14 @@ public class AdminController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/check-expiring-items")
+    public ResponseEntity<?> checkExpiringItems() {
+        try {
+            fridgeService.checkAndNotifyExpiringItems();
+            return ResponseEntity.ok(Map.of("message", "Expiring items check completed and notifications sent"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

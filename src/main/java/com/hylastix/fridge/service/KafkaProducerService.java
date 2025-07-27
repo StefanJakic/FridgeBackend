@@ -12,4 +12,9 @@ public class KafkaProducerService {
     public void send(String msg) {
         kafkaTemplate.send("statistic-topic", msg);
     }
+
+    public void sendEmailNotification(String email, String message) {
+        String emailMessage = String.format("{\"email\":\"%s\",\"message\":\"%s\"}", email, message);
+        kafkaTemplate.send("email-topic", emailMessage);
+    }
 } 
